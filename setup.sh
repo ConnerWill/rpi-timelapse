@@ -20,13 +20,16 @@ fi
 if ! command -v docker >/dev/null 2>&1; then
   printf "Installing Docker\n\n"
   curl -sSL https://get.docker.com | sh
-  dockerd-rootless-setuptool.sh install
 
   printf "Adding current user to the docker group...\n\n"
   sudo usermod -aG docker "${USER}"
 
   printf "Enabling Docker to start on boot...\n\n"
   sudo systemctl enable docker --now
+
+  printf "Log out and log back in to be added to docker group\n\n"
+  sleep 1
+  return 0
 fi
 
 if ! command -v docker-compose >/dev/null 2>&1; then
@@ -34,7 +37,6 @@ if ! command -v docker-compose >/dev/null 2>&1; then
   sudo apt -y update
   sudo apt -y install docker-compose
 fi
-
 
 if [[ -d "${PROJECT_DIR}" ]]; then
   printf "Repository already exists, pulling latest changes...\n\n"
