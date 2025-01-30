@@ -11,12 +11,16 @@ printf "Checking if we have everything...\n\n"
 if ! command -v git >/dev/null 2>&1; then
   printf "Updating system and installing dependencies...\n"
   sudo apt -y update
+  sudo apt -y upgrade
+  sudo apt -y autoremove
+  sudo apt -y autoclean
   sudo apt -y install git
 fi
 
 if ! command -v docker >/dev/null 2>&1; then
   printf "Installing Docker\n\n"
   curl -sSL https://get.docker.com | sh
+  dockerd-rootless-setuptool.sh install
 
   printf "Adding current user to the docker group...\n\n"
   sudo usermod -aG docker "${USER}"
