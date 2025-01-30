@@ -2,6 +2,8 @@ version: "3.8"
 
 services:
   timelapse-camera:
+    container_name: timelapse-camera
+    image: timelapse-camera:latest
     build: .
     restart: unless-stopped
     volumes:
@@ -10,4 +12,6 @@ services:
       - "8000:8000"
     devices:
       - "/dev/video0:/dev/video0"  # Attach Raspberry Pi camera
-
+      - "/dev/vchiq:/dev/vchiq"  # Grants access to the Raspberry Pi camera module
+    environment:
+      - CAPTURE_DEVICE=/dev/video0  # Define capture device
