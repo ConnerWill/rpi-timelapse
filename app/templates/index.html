@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timelapse Camera</title>
+</head>
+<body>
+    <h1>Raspberry Pi Timelapse Camera</h1>
+    <h2>Latest Frame</h2>
+    <img src="/latest.jpg" alt="Latest frame" width="640">
+    
+    <h2>Timelapse Video</h2>
+    <video width="640" controls>
+        <source src="/timelapse.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <h2>Generate Timelapse</h2>
+    <button onclick="generateTimelapse()">Generate</button>
+
+    <script>
+        function generateTimelapse() {
+            fetch('/generate-timelapse')
+                .then(response => response.text())
+                .then(alert);
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  timelapse-camera:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - ./app/static:/app/static
+    ports:
+      - "8000:8000"
+    devices:
+      - "/dev/video0:/dev/video0"  # Attach Raspberry Pi camera
+
